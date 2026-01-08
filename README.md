@@ -22,9 +22,9 @@ PER L'ESECUZIONE
 
 Per simulare l'evoluzione di un sistema e generare l'animazione 3D:
 
-    \`\`\`bash
+    ```bash
     python3 solar_system.py --config dati/file.json --dt 0.01 --npassi 10000 --zoom 2.0
-    \`\`\`
+    ```
 
 il comando salva automaticamente un grafico nella cartella outputs (se questa non esiste, viene creata).
 I flag `--dt` e `--npassi` hanno un valore di default nel caso non venga specificato dall'utente.
