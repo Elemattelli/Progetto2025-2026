@@ -8,6 +8,8 @@ $$a_{i} = \sum_{j \ne i} G \frac{m_{j}}{|r_{ij}|^2} \frac{r_{ij}}{|r_{ij}|}$$
 
 Partendo da condizioni iniziali note (posizioni e velocità), il sistema calcola l'evoluzione temporale procedendo per passi discreti.
 
+**Nota sulle Unità di misura** : Il simulatore utilizza Unità Astronomiche (AU) per le distanze, giorni per il tempo e masse solari relative. La costante gravitazionale G è impostata coerentemente nel modulo `nbody.py`
+
 ## Funzionalità principali:
 - implementazione dell'algoritmo di integrazione nel modulo `nbody.py`   
 - animazione interattiva e produzione di grafici statici delle traiettorie in `solar_system.py`
