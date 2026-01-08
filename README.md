@@ -1,4 +1,4 @@
-# Progetto2025-
+# Progetto2025-2026
 
 Questo progetto implementa un simulatore gravitazionale basato sulla legge di gravitazione universale di Newton. Il software permette di studiare l'evoluzione orbitale di sistemi complessi (come il Sistema Solare) e di analizzare la velocità radiale di stelle per l'individuazione di esopianeti tramite analisi in frequenza.
 
@@ -8,7 +8,7 @@ $$a_{i} = \sum_{j \ne i} G \frac{m_{j}}{|r_{ij}|^2} \frac{r_{ij}}{|r_{ij}|}$$
 
 Partendo da condizioni iniziali note (posizioni e velocità), il sistema calcola l'evoluzione temporale procedendo per passi discreti.
 
-# Funzionalità principali:
+## Funzionalità principali:
 - implementazione dell'algoritmo di integrazione nel modulo `nbody.py`   
 - animazione interattiva e produzione di grafici statici delle traiettorie in `solar_system.py`
 - studio delle velocità radiali e spettroscopia Doppler tramite FFT in `exoplanets.py`
@@ -18,7 +18,7 @@ Il progetto richiede python3 e le seguenti librerie:
     - `matplotlib`
     - `scipy`
 
-# Per l'esecuzione
+## Per l'esecuzione
 Per simulare l'evoluzione di un sistema e generare l'animazione 3D:
 
     ```bash
@@ -38,7 +38,7 @@ Per analizzare il movimento di una stella indotto da pianeti orbitanti e calcola
 
 Questo script produce il grafico della velocità radiale della stella nel tempo e lo spettro di potenza con la stima del periodo orbitale dominante.
 
-STRUTTURA REPOSITORY
+## Struttura repository
 
 `nbody.py` : contiene la funzione calcola_accelerazioni e l'integratore
 
