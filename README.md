@@ -4,7 +4,7 @@ Questo progetto implementa un simulatore gravitazionale basato sulla legge di gr
 
 Il progetto si basa sulla risoluzione numerica delle equazioni del moto
 
-$$a_{i} = \sum_{j \ne i} G \frac{m_{j}}{|r_{ij}|^2} \frac{r_{ij}}{|r_{ij}|}$$
+$$a_{i} = - \sum_{j \ne i} G \frac{m_{j}}{|r_{ij}|^2} \frac{r_{ij}}{|r_{ij}|}$$
 
 Partendo da condizioni iniziali note (posizioni e velocità), il sistema calcola l'evoluzione temporale procedendo per passi discreti.
 
