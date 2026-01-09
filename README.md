@@ -16,9 +16,9 @@ Partendo da condizioni iniziali note (posizioni e velocità), il sistema calcola
 - studio delle velocità radiali e spettroscopia Doppler tramite FFT in `exoplanets.py`
 
 Il progetto richiede python3 e le seguenti librerie:
-    - `numpy`
-    - `matplotlib`
-    - `scipy`
+- `numpy`
+- `matplotlib`
+- `scipy`
 
 ## Per l'esecuzione
 Per simulare l'evoluzione di un sistema e generare l'animazione 3D:
