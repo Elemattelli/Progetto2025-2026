@@ -88,7 +88,7 @@ def main():
             print("Nessun file .json trovato.")
         return 
     if not args.config:
-        print("Errore: E' necessario specificare un file con --config datisolarsystem//nomefile.json")
+        print("Errore: E' necessario specificare un file con --config dati/solarsystem/nomefile.json")
         print("Usa --list per vedere i file disponibili.")
         return
 
