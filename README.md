@@ -61,7 +61,7 @@ Per visualizzare i file di configurazione `.json` disponibili per un determinato
 
 `exoplanets.py` : dedicato all'analisi delle velocità radiali
 
-`dati/` : cartella contenente i file `.json` con i parametri fisici (masse, coordinate e velocità)
+`dati/` : cartella contenente i file `.json` con i parametri fisici (masse, coordinate e velocità). E' organizzata nelle sottocartelle `solarsystem/` ed `exoplanet/` in base alla tipologia di simulazione suggerita.
 
 `outputs/` : cartella creata automaticamente per il salvataggio dei grafici statici `.png`
 
@@ -91,6 +91,7 @@ Questi file sono ottimizzati per `exoplanets.py` (si consiglia un `dt` piccolo)
 - `esopianeta2.json` : caso estremo con pianeta massiccio (100 volte la massa di Giove) per segnali Doppler evidenti
 - `esopianeta3.json` : pianeta 10 volte la massa di Giove in orbita strettissima
 - `esopianeta4.json` : caso limite con pianeta di massa terrestre
+- `esopianeti.json` : caso di due giaganti che orbitano attorno a una stella come il Sole
 
 3. **Test di stabilità e perturbazioni**:
 - `sistsolare_velterra41.json` : Terra con velocià incrementata del 41%, limite del legame gravitazionale
