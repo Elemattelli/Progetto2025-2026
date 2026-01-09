@@ -35,7 +35,7 @@ Il flag `--dt` rappresenta il passo temporale (ovvero l'intervallo di tempo che 
 
 I flag `--dt` e `--npassi` hanno un valore di default nel caso non venga specificato dall'utente.
 
-Il flag `--zoom` seguito da un valore in AU serve per regolare la vista, data la grande differenza di distanza dal Sole tra i pianeti più interni e quelli più esterni.
+Il flag `--zoom` seguito da un valore in AU serve per regolare la vista, data la grande differenza di distanza dal Sole tra i pianeti più interni e quelli più esterni. E' altrimenti possibile regolare lo zoom manualmente direttamente dall'immagine ottenuta.
 
 
 Per analizzare il movimento di una stella indotto da pianeti orbitanti e calcolarne il periodo:
