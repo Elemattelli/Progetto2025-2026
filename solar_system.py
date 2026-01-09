@@ -2,6 +2,7 @@ import nbody as nb
 import numpy as np
 import os
 import json
+import glob
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
@@ -69,12 +70,27 @@ def anima_sistema(nomi_corpi, traiettoria, N, args, colors):
 
 def main():
     parser = argparse.ArgumentParser(description='Simulazione dinamica di un sistema a N corpi',
-                                     usage='python3 solar_system.py --config dati/file.json --dt --npassi --zoom')
+                                     usage='python3 solar_system.py --config dati/solarsystem/file.json --dt --npassi --zoom')
+    parser.add_argument('--list', action='store_true', help='Mostra tutti i file di configurazione JSON disponibili')
     parser.add_argument('--config', type=str, help='File json con masse, posizioni e velocità')
-    parser.add_argument('--dt', type=float, default=0.01, help='Passo temporale (default 0.01)')
+    parser.add_argument('--dt', type=float, default=0.1, help='Passo temporale (default 0.1)')
     parser.add_argument('--npassi', type=int, default=10000, help='Numero passi (default 10000)')
     parser.add_argument('--zoom', type=float, help='Zoom AU')
     args = parser.parse_args()
+
+    if args.list:
+        file_json = glob.glob("dati/solarsystem/*.json")
+        print("File di cofigurazione trovati:")
+        if file_json:
+            for f in file_json:
+                print(f"  > {f}")
+        else:
+            print("Nessun file .json trovato.")
+        return 
+    if not args.config:
+        print("Errore: E' necessario specificare un file con --config datisolarsystem//nomefile.json")
+        print("Usa --list per vedere i file disponibili.")
+        return
 
     with open(args.config, 'r') as f:
         sistema = json.load(f)
@@ -101,9 +117,7 @@ def main():
     fig = plt.figure(figsize=(12, 10))
     ax = fig.add_subplot(111, projection='3d')
 
-    # colori_fissi = ['#FFFFFF','#ADADAD', '#FF00FF', '#00FFFF', '#FF3131', '#FFAC2E', '#F5D033', '#00FF9F', '#3D52FF']
-    # colors = [colori_fissi[i % len(colori_fissi)] for i in range(N)]
-    colors = plt.cm.viridis(np.linspace(0, 1, N))
+    colors = plt.cm.turbo(np.linspace(0, 1, N))
 
     fig.patch.set_facecolor('#0B0E14') #sfondo esterno
     ax.set_facecolor('#0B0E14') # sfondo del plot
@@ -144,7 +158,7 @@ def main():
         ax.set_ylim(-limit, limit)
         ax.set_zlim(-limit, limit)
 
-    ax.set_title(rf'Evoluzione sistema: {args.config}\n(dt={args.dt}, passi={args.npassi})')
+    ax.set_title(rf'Evoluzione sistema: {args.config} (dt={args.dt}, passi={args.npassi})')
     ax.set_xlabel(r'X [Au]')
     ax.set_ylabel(r'Y [Au]')
     ax.set_zlabel(r'Z [Au]')
