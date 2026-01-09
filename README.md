@@ -27,7 +27,7 @@ Per simulare l'evoluzione di un sistema e generare l'animazione 3D:
     python3 solar_system.py --config dati/solarsystem/file.json --dt 0.01 --npassi 10000 --zoom 2.0
     ```
 
-il comando salva automaticamente un grafico nella cartella `outputs/` (se questa non esiste, viene creata).
+Il comando salva automaticamente un grafico nella cartella `outputs/` (se questa non esiste, viene creata).
 
 Il flag `--config` permette di selezionare il file `.json` che definisce lo scenario della simulazione.
 
@@ -45,6 +45,7 @@ Per analizzare il movimento di una stella indotto da pianeti orbitanti e calcola
     ```
 
 Questo script produce il grafico della velocità radiale della stella nel tempo e lo spettro di potenza con la stima del periodo orbitale dominante.
+
 **Nota**: in questo script non è previsto l'uso del flag `--zoom`. 
 
 Per visualizzare i file di configurazione `.json` disponibili per un determinato script python è possibile utilizzare il flag `--list` nel seguente modo:
@@ -59,7 +60,7 @@ Per visualizzare i file di configurazione `.json` disponibili per un determinato
 
 ## Struttura repository
 
-`nbody.py` : contiene la funzione calcola_accelerazioni e l'integratore
+`nbody.py` : contiene la funzione `calcola_accelerazioni` e l'integratore
 
 `solar_system.py` : script principale per studiare l'evoluzione del sistema solare a partire da diverse condizioni iniziali
 
@@ -71,7 +72,9 @@ Per visualizzare i file di configurazione `.json` disponibili per un determinato
 
 `horizon/` : cartella contenente i file scaricati direttamente da **NASA Horizons**, da cui si sono presi i dati per i file `.json`
 
+
 I file `.json` nella cartella `dati/` permettono di verificare diversi scenari fisici:
+
 **velocità di fuga** : il file `sistsolare_velterra41.json` testa il limite in cui la Terra non è più legata gravitazionalmente al Sole
 
 **Metodo Doppler** : i file `esopianeta.json` (da 1 a 4) mostrano come variando massa e distanza del pianeta cambi l'ampiezza della velocità radiale della stella. Si consiglia un dt piccolo per questi file
