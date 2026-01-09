@@ -77,7 +77,7 @@ I file `.json` nella cartella `dati/` permettono di verificare diversi scenari f
 
 **velocità di fuga** : il file `sistsolare_velterra41.json` testa il limite in cui la Terra non è più legata gravitazionalmente al Sole
 
-**Metodo Doppler** : i file `esopianeta.json` (da 1 a 4) mostrano come variando massa e distanza del pianeta cambi l'ampiezza della velocità radiale della stella. Si consiglia un dt piccolo per questi file
+**Metodo Doppler** : i file `esopianeta.json` (da 1 a 4) mostrano come variando massa e distanza del pianeta cambi l'ampiezza della velocità radiale della stella. 
 
 **Stabilità del sistema** : i file `sistsolare_velgiove.json` analizzano come la perturbazione di un gigante gassoso influenzi le orbite degli altri corpi
 
@@ -93,6 +93,7 @@ Tutti i dati reali sono stati estratti dal sistema **NASA Horizons**:
 - `tre_corpi.json` : sistema semplificato con Sole, Terra e Giove al 29/12/2025 
 
 2. **Metodo Doppler e ricerca di esopianeti**:
+
 Questi file sono ottimizzati per `exoplanets.py` (si consiglia un `dt` piccolo)
 - `esopianeta.json` : stella simile al Sole e un pianeta 10 volte la massa di Giove posto a distanza ravvicinata
 - `esopianeta2.json` : caso estremo con pianeta massiccio (100 volte la massa di Giove) per segnali Doppler evidenti
