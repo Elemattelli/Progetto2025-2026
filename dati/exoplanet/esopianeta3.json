@@ -10,7 +10,6 @@
         "m": 1.898e28,
         "r": [0.02, 0.0, 0.0],
         "v": [0.0, 0.035, 0.0],
-        "nota": "Massa 10x Giove",
-        "dt consigliato": 0.0001
+        "nota": "Massa 10x Giove"
     }
 }
