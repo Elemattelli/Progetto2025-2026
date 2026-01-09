@@ -28,9 +28,13 @@ Per simulare l'evoluzione di un sistema e generare l'animazione 3D:
     ```
 
 il comando salva automaticamente un grafico nella cartella `outputs/` (se questa non esiste, viene creata).
+
 Il flag `--config` permette di selezionare il file `.json` che definisce lo scenario della simulazione.
+
 Il flag `--dt` rappresenta il passo temporale (ovvero l'intervallo di tempo che intercorre tra un calcolo e quello successivo), mentre `--npassi` specifica il numero totale di iterazioni; la durata totale della simulazione è data dal prodotto tra questi due valori.
+
 I flag `--dt` e `--npassi` hanno un valore di default nel caso non venga specificato dall'utente.
+
 Il flag `--zoom` seguito da un valore in AU serve per regolare la vista, data la grande differenza di distanza dal Sole tra i pianeti più interni e quelli più esterni.
 
 
