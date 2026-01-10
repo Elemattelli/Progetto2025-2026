@@ -100,6 +100,8 @@ Questi file sono ottimizzati per `exoplanets.py` (si consiglia un `dt` piccolo)
 - `esopianeta3.json` : pianeta 10 volte la massa di Giove in orbita strettissima
 - `esopianeta4.json` : caso limite con pianeta di massa terrestre
 - `esopianeti.json` : caso di due giaganti che orbitano attorno a una stella come il Sole
+- `esopianeta_ellittico.json` : variante di `esopianeta.json` ma con velocità iniziale ridotta, per forzare un'orbita ellittica.
+- `esopianeti_inst.json` : variante di `esopianeti.json` con il pianeta esterno a 0.9 AU. La maggiore vicinanza tra i due giganti gassosi innesca perturbazioni gravitazionali reciproche.
 
 3. **Test di stabilità e perturbazioni**:
 - `sistsolare_velterra41.json` : Terra con velocià incrementata del 41%, limite del legame gravitazionale
