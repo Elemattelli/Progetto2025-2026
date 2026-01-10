@@ -57,9 +57,14 @@ def anima_sistema(nomi_corpi, traiettoria, N, args, colors):
         return punti + scie + testi
 
     if args.zoom:
-        ax.set_xlim(-args.zoom, args.zoom)
-        ax.set_ylim(-args.zoom, args.zoom)
-        ax.set_zlim(-args.zoom, args.zoom)
+        limite = args.zoom
+    else:
+        all_pos = traiettoria.reshape(-1, 3)
+        limite = np.abs(all_pos).max() *1.1
+    
+    ax.set_xlim(-limite, limite)
+    ax.set_ylim(-limite, limite)
+    ax.set_zlim(-limite, limite)
 
     ax.legend(loc='upper left', frameon=False, fontsize=8)
     ani = FuncAnimation(fig, update, frames=range(0, args.npassi, 10), 
@@ -80,7 +85,7 @@ def main():
 
     if args.list:
         file_json = glob.glob("dati/solarsystem/*.json")
-        print("File di cofigurazione trovati:")
+        print("File di configurazione trovati:")
         if file_json:
             for f in file_json:
                 print(f"  > {f}")
@@ -109,6 +114,12 @@ def main():
     v = np.array(velocita)
     dt = args.dt
     npassi = args.npassi
+
+    v_cm = np.sum(m[:, np.newaxis] * v, axis=0) / np.sum(m)
+    v -= v_cm
+
+    r_cm = np.sum(m[:, np.newaxis] * r, axis=0) / np.sum(m)
+    r -= r_cm
 
     traiettoria, _ = nb.integra_sistema(m, r, v, dt, npassi)
 
@@ -146,17 +157,14 @@ def main():
         
     if args.zoom:
         limite = args.zoom
-        ax.set_xlim(-limite, limite)
-        ax.set_ylim(-limite, limite)
-        ax.set_zlim(-limite, limite)
     
     else:
         all_pos = traiettoria.reshape(-1, 3)
-        limit = np.abs(all_pos).max()
+        limite = np.abs(all_pos).max() * 1.1
 
-        ax.set_xlim(-limit, limit)
-        ax.set_ylim(-limit, limit)
-        ax.set_zlim(-limit, limit)
+    ax.set_xlim(-limite, limite)
+    ax.set_ylim(-limite, limite)
+    ax.set_zlim(-limite, limite)
 
     ax.set_title(rf'Evoluzione sistema: {args.config} (dt={args.dt}, passi={args.npassi})')
     ax.set_xlabel(r'X [Au]')
