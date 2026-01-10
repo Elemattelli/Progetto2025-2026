@@ -5,6 +5,8 @@ import glob
 import matplotlib.pyplot as plt
 from scipy.fft import fft, fftfreq
 import nbody as nb
+from matplotlib.animation import FuncAnimation
+from mpl_toolkits.mplot3d import Axes3D
 import argparse
 
 def velocita_radiale(vx_stella, nomi_corpi, dt):
@@ -44,18 +46,80 @@ def analisi_fourier_velocita(vx_stella, dt):
     plt.show()
     return periodo
 
+def anima_sistema(nomi_corpi, traiettoria, N, args, colors):
+    plt.style.use('dark_background')
+    fig = plt.figure(figsize=(10, 8), facecolor='#0B0E14')
+    ax = fig.add_subplot(111, projection='3d')
+    ax.set_facecolor('#0B0E14')
+
+    # griglia
+    grid_params = {'linewidth': 0.2, 'color': (0.5, 0.5, 0.5, 0.2)}
+    ax.xaxis._axinfo["grid"].update(grid_params)
+    ax.yaxis._axinfo["grid"].update(grid_params)
+    ax.zaxis._axinfo["grid"].update(grid_params)
+    
+    ax.xaxis.set_pane_color((0,0,0,0))
+    ax.yaxis.set_pane_color((0,0,0,0))
+    ax.zaxis.set_pane_color((0,0,0,0))
+
+    ax.scatter(0, 0, 0, color='crimson', marker='.', s=100, label='Baricentro', alpha=0.7)
+    punti = [ax.plot([], [], [], 'o', color=colors[i], markersize=6,
+                     markeredgecolor='white', markeredgewidth=0.5, label=nomi_corpi[i])[0] for i in range(N)]
+    scie = [ax.plot([], [], [], '-', color=colors[i], alpha=0.4, linewidth=0.8)[0] for i in range(N)]
+    testi = [ax.text(0, 0, 0, nomi_corpi[i], color=colors[i], fontsize=8, fontweight='bold', zdir=(1, 0, 0)) for i in range(N)]
+
+    def init():
+        for punto, scia, testo in zip(punti, scie, testi):
+            punto.set_data([], [])
+            punto.set_3d_properties([])
+            scia.set_data([], [])
+            scia.set_3d_properties([])
+            testo.set_position((0, 0))
+        return punti + scie + testi
+
+    def update(frame):
+        for i in range(N):
+            x, y, z = traiettoria[frame, i, 0], traiettoria[frame, i, 1], traiettoria[frame, i, 2]
+            punti[i].set_data([x], [y])
+            punti[i].set_3d_properties([z])
+                
+            scia_x = traiettoria[:frame, i, 0]
+            scia_y = traiettoria[:frame, i, 1]
+            scia_z = traiettoria[:frame, i, 2]
+            scie[i].set_data(scia_x, scia_y)
+            scie[i].set_3d_properties(scia_z)
+
+            testi[i].set_position((x, y))
+            testi[i].set_3d_properties(z, 'z')
+            testi[i].set_horizontalalignment('left') 
+            testi[i].set_verticalalignment('bottom') 
+        return punti + scie + testi
+
+    all_pos = traiettoria.reshape(-1, 3)
+    limite = np.abs(all_pos).max() * 1.1
+
+    ax.set_xlim(-limite, limite)
+    ax.set_ylim(-limite, limite)
+    ax.set_zlim(-limite, limite)
+
+    ax.legend(loc='upper left', frameon=False, fontsize=8)
+    ani = FuncAnimation(fig, update, frames=range(0, args.npassi, 10), 
+                            init_func=init, blit=False, interval=20)
+
+    plt.show()
+
 def main():
     parser = argparse.ArgumentParser(description='Simulazione dinamica di un sistema a N corpi',
                                      usage='python3 exoplanets.py --config dati/exoplanet/file.json --dt --npassi')
     parser.add_argument('--list', action='store_true', help='Mostra tutti i file di configurazione JSON disponibili')
     parser.add_argument('--config', type=str, help='File json con masse, posizioni e velocità')
     parser.add_argument('--dt', type=float, default=0.001, help='Passo temporale (default 0.001)')
-    parser.add_argument('--npassi', type=int, default=10000, help='Numero passi (default 10000)')
+    parser.add_argument('--npassi', type=int, default=100000, help='Numero passi (default 100000)')
     args = parser.parse_args()
 
     if args.list:
         file_json = glob.glob("dati/exoplanet/*.json")
-        print("File di cofigurazione trovati:")
+        print("File di configurazione trovati:")
         if file_json:
             for f in file_json:
                 print(f"  > {f}")
@@ -85,6 +149,12 @@ def main():
     v = np.array(velocita)
     dt = args.dt
     npassi = args.npassi
+
+    v_cm = np.sum(m[:, np.newaxis] * v, axis=0) / np.sum(m)
+    v -= v_cm
+
+    r_cm = np.sum(m[:, np.newaxis] * r, axis=0) / np.sum(m)
+    r -= r_cm
 
     traiettoria, velocita_tot = nb.integra_sistema(m, r, v, dt, npassi)
     vx_stella = velocita_tot[:, 0, 0]
@@ -121,13 +191,14 @@ def main():
         ax.text(traiettoria[-1, i, 0], traiettoria[-1, i, 1], traiettoria[-1, i, 2],
                 f' {nomi_corpi[i]}', fontsize=9, color=colors[i], fontweight='semibold', va='center')
 
+    ax.scatter(0, 0, 0, color='crimson', marker='.', s=50, label='Baricentro')
 
     all_pos = traiettoria.reshape(-1, 3)
-    limit = np.abs(all_pos).max()
+    limite = np.abs(all_pos).max() * 1.1
 
-    ax.set_xlim(-limit, limit)
-    ax.set_ylim(-limit, limit)
-    ax.set_zlim(-limit, limit)
+    ax.set_xlim(-limite, limite)
+    ax.set_ylim(-limite, limite)
+    ax.set_zlim(-limite, limite)
 
     ax.set_title(rf'Evoluzione sistema: {args.config} (dt={args.dt}, passi={args.npassi})')
     ax.set_xlabel(r'X [Au]')
@@ -144,6 +215,8 @@ def main():
     plt.savefig(percorso_finale, dpi=300, bbox_inches='tight')
     print(f'Grafico salvato in: {percorso_finale}')
 
+    anima_sistema(nomi_corpi, traiettoria, N, args, colors)
+    
     velocita_radiale(vx_stella, nomi_corpi[0], dt)
     analisi_fourier_velocita(vx_stella, dt)
 
