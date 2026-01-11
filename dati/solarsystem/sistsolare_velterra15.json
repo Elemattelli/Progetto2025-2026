@@ -20,7 +20,7 @@
 
     "Terra" : {
         "m": 5.97219e24,
-        "r": [-0.12244, -0.97576, -5.93889e-05],
+        "r": [-0.12244, 1.12212, -5.93889e-05],
         "v": [-1.99489e-02, -2.54491e-03, -2.80379e-07],
         "nota": "dati modificati per la Terra, la cui velocità è incrementata del 15% (x1.15)"
     },
